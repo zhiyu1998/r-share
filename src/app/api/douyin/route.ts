@@ -7,6 +7,7 @@ import * as xBogus from "@/app/api/douyin/x-bogus.cjs";
 import path from "path";
 import { downloadVideo } from "@/lib/file";
 import { ApiResponse } from "@/types/common";
+import { constructURL } from "@/lib/utils";
 
 const dyCookie = process.env.DY_COOKIE || "";
 
@@ -70,14 +71,15 @@ export async function GET(req: NextRequest, resp: NextResponse) {
 						"https",
 					);
 					const fileName = `${item.aweme_id}.mp4`;
+					const videoPath = await downloadVideo(
+						resUrl,
+						dataFolderPath,
+						fileName,
+					);
 					return {
 						desc: item.desc,
-						url: await downloadVideo(
-							resUrl,
-							dataFolderPath,
-							fileName,
-						),
-						debug: resp.data.aweme_detail,
+						url: constructURL(videoPath + `/${item.aweme_id}`),
+						// debug: resp.data.aweme_detail,
 					};
 				} else if (urlType === "image") {
 					// 无水印图片列表

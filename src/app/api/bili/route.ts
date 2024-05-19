@@ -12,7 +12,7 @@ import {
 	getVideoInfo,
 	m4sToMp3,
 } from "@/app/api/bili/bilibili";
-import { secondsToTime, truncateString } from "@/lib/utils";
+import { constructURL, secondsToTime, truncateString } from "@/lib/utils";
 import { ApiResponse, StringOrNumber } from "@/types/common";
 import axios from "axios";
 import { BILI_SUMMARY } from "@/constants/bili";
@@ -160,7 +160,8 @@ export async function GET(req: NextRequest, resp: NextResponse) {
 			title,
 			desc,
 			cover: pic,
-			url: downloadPath,
+			url: constructURL(downloadPath),
+			combineContent,
 			summary,
 			durationInMinutes,
 			videoInfo,

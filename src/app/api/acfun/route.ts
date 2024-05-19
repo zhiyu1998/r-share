@@ -9,6 +9,7 @@ import {
 } from "@/app/api/acfun/acfun";
 import logger from "@/lib/logger";
 import { ApiResponse } from "@/types/common";
+import { constructURL } from "@/lib/utils";
 
 // Next.js下bili请求的data文件夹
 const dataFolderPath = path.join(process.cwd(), "public", "data", "acfun");
@@ -49,7 +50,7 @@ export async function GET(req: NextRequest, resp: NextResponse) {
 
 	return NextResponse.json({
 		data: {
-			url: `${dataFolderPath}/out.mp4`,
+			url: constructURL(`${dataFolderPath}/out`),
 			title: videoInfo?.videoName,
 		},
 	} as ApiResponse);

@@ -4,6 +4,7 @@ import { XHS_NO_WATERMARK_HEADER, XHS_REQ_LINK } from "@/constants/xhs";
 import logger from "@/lib/logger";
 import { downloadVideo } from "@/lib/file";
 import { ApiResponse } from "@/types/common";
+import { constructURL } from "@/lib/utils";
 
 const dataFolderPath = path.join(process.cwd(), "public", "data", "xhs");
 
@@ -63,18 +64,14 @@ export async function GET(req: NextRequest, resp: NextResponse) {
 			const videoPath = await downloadVideo(
 				xhsVideoUrl,
 				downloadPath,
-			).then((path) => {
-				// if (path === undefined) {
-				// 	// 创建文件，如果不存在
-				// 	path = `${this.getCurDownloadPath(e)}/`;
-				// }
-				// this.sendVideoToUpload(e, `${path}/temp.mp4`);
-			});
+			);
+			// 拼接视频链接，暂时这样写
+			const respUrl = videoPath + "/temp";
 			return {
 				title,
 				desc,
 				cover,
-				url: videoPath,
+				url: constructURL(respUrl),
 			};
 		} else if (type === "normal") {
 			logger.info(`识别：小红书, ${title}\n${desc}`);

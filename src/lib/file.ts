@@ -69,7 +69,7 @@ export async function downloadVideo(
 		proxyAddr: "127.0.0.1",
 		proxyPort: 7890,
 	},
-) {
+): Promise<string> {
 	// 构造下载文件夹
 	await mkdirIfNotExists(downloadPath);
 	// 构造header部分内容
@@ -102,8 +102,8 @@ export async function downloadVideo(
 		fileName,
 	};
 
-	// 如果是用户设置了单线程，则不分片下载
-	return await downloadVideoWithSingleThread(downloadVideoParams);
+	// 如果是用户设置了单线程，则不分片下载，如果下载失败就返回空
+	return await downloadVideoWithSingleThread(downloadVideoParams) || '';
 	// if (numThreads == 1) {
 	// 	return await downloadVideoWithSingleThread(downloadVideoParams);
 	// } else {
@@ -208,7 +208,7 @@ export async function downloadVideo(
  */
 async function downloadVideoWithSingleThread(
 	downloadVideoParams: DownloadVideoParams,
-) {
+): Promise<string | undefined> {
 	const { url, headers, userAgent, proxyOption, downloadPath, fileName } =
 		downloadVideoParams;
 	const axiosConfig = {

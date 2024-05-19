@@ -1,4 +1,6 @@
 import { TEN_THOUSAND } from "@/lib/constants";
+import logger from "@/lib/logger";
+import path from "path";
 
 /**
  * 千位数的数据处理
@@ -49,4 +51,20 @@ export function secondsToTime(seconds: number) {
 
 	// 完整的 HH:MM:SS 格式
 	return `${pad(hours, 2)}:${pad(minutes, 2)}:${pad(secs, 2)}`;
+}
+
+/**
+ * 构造返回video/img的链接
+ * @param downloadPath 下载文件所在绝对路径
+ * @param fileType		 文件类型，默认.mp4
+ */
+export function constructURL(downloadPath: string, fileType: string = ".mp4") {
+	const relativeFilePath = path.relative(
+		path.join(process.cwd(), "public"),
+		downloadPath,
+	);
+	// 获取Base URL
+	const baseUrl = process.env.BASE_URL;
+	// 拼接完整URL
+	return new URL(relativeFilePath + fileType, baseUrl).href;
 }
