@@ -3,6 +3,7 @@ import path from "path";
 import { XHS_NO_WATERMARK_HEADER, XHS_REQ_LINK } from "@/constants/xhs";
 import logger from "@/lib/logger";
 import { downloadVideo } from "@/lib/file";
+import { ApiResponse } from "@/types/common";
 
 const dataFolderPath = path.join(process.cwd(), "public", "data", "xhs");
 
@@ -91,5 +92,5 @@ export async function GET(req: NextRequest, resp: NextResponse) {
 	});
 	return NextResponse.json({
 		data,
-	});
+	} as ApiResponse);
 }

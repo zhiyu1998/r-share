@@ -6,6 +6,7 @@ import { douyinTypeMap, DY_INFO } from "@/constants/tiktok";
 import * as xBogus from "@/app/api/douyin/x-bogus.cjs";
 import path from "path";
 import { downloadVideo } from "@/lib/file";
+import { ApiResponse } from "@/types/common";
 
 const dyCookie = process.env.DY_COOKIE || "";
 
@@ -100,7 +101,7 @@ export async function GET(req: NextRequest, resp: NextResponse) {
 	});
 	return NextResponse.json({
 		data,
-	});
+	} as ApiResponse);
 }
 
 /**

@@ -13,7 +13,7 @@ import {
 	m4sToMp3,
 } from "@/app/api/bili/bilibili";
 import { secondsToTime, truncateString } from "@/lib/utils";
-import { StringOrNumber } from "@/types/common";
+import { ApiResponse, StringOrNumber } from "@/types/common";
 import axios from "axios";
 import { BILI_SUMMARY } from "@/constants/bili";
 import { getWbi } from "@/app/api/bili/biliWbi";
@@ -158,14 +158,14 @@ export async function GET(req: NextRequest, resp: NextResponse) {
 	return NextResponse.json({
 		data: {
 			title,
-			combineContent,
+			desc,
 			cover: pic,
-			videoUrl: downloadPath,
+			url: downloadPath,
 			summary,
 			durationInMinutes,
 			videoInfo,
 		},
-	});
+	} as ApiResponse);
 }
 
 /**
