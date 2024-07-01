@@ -4,11 +4,14 @@ import MDXContent from "@/components/md-content";
 
 import { notFound } from "next/navigation";
 
-import { getPostBySlug, getPosts } from "@/lib/markdown-utils";
+import {
+	getAllPostTitles,
+	getPostBySlug,
+	getPosts,
+} from "@/lib/markdown-utils";
 
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 interface PageProps {
 	params: {
 		slug: string;
@@ -20,21 +23,34 @@ export default async function Page({ params }: PageProps) {
 	if (!post) return notFound();
 
 	return (
-		<div className="max-w-3xl px-8 py-6 mx-auto">
-			<div className="flex flex-col mt-16">
-				<Link href="/">
-				<span className="inline-flex items-center text-sm text-zinc-400">
-					<ArrowLeftIcon className="w-4 h-4 mr-2" />
-					Back to posts
-				</span>
-				</Link>
-				<h1 className="text-4xl font-semibold mt-6">{post.title}</h1>
-				<p className="text-sm text-zinc-400 mt-2">
-					Written by {post.author.name}
-				</p>
-				<article className="max-w-none prose mt-10 mx-auto">
-					<MDXContent source={post.content} />
-				</article>
+		<div className="drawer lg:drawer-open ">
+			<input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+			<div className="drawer-content">
+				{/* Page content here */}
+				<div className="px-8 py-6 mx-auto font-custom">
+					<h1 className="text-4xl font-semibold">{post.title}</h1>
+					<p className="text-sm text-zinc-400 mt-2">
+						Written by {post.author}
+					</p>
+					<article className="max-w-none prose mt-10 mx-auto mb-10">
+						<MDXContent source={post.content} />
+					</article>
+				</div>
+			</div>
+			<div className="drawer-side">
+				<label
+					htmlFor="my-drawer-2"
+					aria-label="close sidebar"
+					className="drawer-overlay"
+				></label>
+				<ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+					{/* Sidebar content here */}
+					{getAllPostTitles().map((post) => (
+						<li key={post.slug}>
+							<Link href={post.slug}>{post.title}</Link>
+						</li>
+					))}
+				</ul>
 			</div>
 		</div>
 	);
@@ -45,7 +61,7 @@ export function generateMetadata({ params }: PageProps): Metadata {
 	if (!post) return notFound();
 
 	return {
-		title: `${post.title} | someblog`,
+		title: `${post.title} | r-share`,
 	};
 }
 

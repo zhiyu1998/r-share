@@ -1,5 +1,4 @@
 import { TEN_THOUSAND } from "@/lib/constants";
-import logger from "@/lib/logger";
 import path from "path";
 
 /**

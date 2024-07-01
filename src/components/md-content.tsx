@@ -25,8 +25,10 @@ export default async function MDXContent({ source }: MDXRemoteProps) {
 				mdxOptions: {
 					// @ts-ignore
 					remarkPlugins: [remarkGfm, remarkEmoji],
-					// @ts-ignore
-					rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
+					rehypePlugins: [
+						// @ts-ignore
+						[rehypePrettyCode, rehypePrettyCodeOptions],
+					],
 				},
 			}}
 		/>

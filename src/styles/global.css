@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+    width: 8px; /* 滚动条宽度 */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* 滚动条轨道背景色 */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888; /* 滚动条滑块颜色 */
+    border-radius: 4px; /* 滑块圆角 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* 滑块悬停时的颜色 */
+}
+
+@font-face {
+    font-family: 'CustomMarkdownFont';
+    src: url('/fonts/SourceHanSerifCN-VF.woff2') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CustomMarkdownFont';
+    src: url('/fonts/FiraCode-VF.woff2') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
